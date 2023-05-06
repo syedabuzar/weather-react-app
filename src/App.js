@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
-  const [query, setQuery] = useState({ q: "berlin" });
+  const [query, setQuery] = useState({ q: "lahore" });
   const [units, setUnits] = useState("metric");
   const [weather, setWeather] = useState(null);
 
@@ -31,6 +31,7 @@ function App() {
     };
 
     fetchWeather();
+    // console.log(weather + "asdasdasdasd")
   }, [query, units]);
 
   const formatBackground = () => {
@@ -38,22 +39,20 @@ function App() {
     const threshold = units === "metric" ? 20 : 60;
     if (weather.temp <= threshold) return "from-cyan-700 to-blue-700";
 
-    return "from-yellow-700 to-orange-700";
+    return "from-yellow-900 to-orange-400";
   };
 
   return (
-    <div className={`mx-auto max-w-screen py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400 ${formatBackground()}`}>
+    <div className={`mx-auto max-w-screen py-5 px-32 bg-gradient-to-br from-cyan-900 to-blue-400 h-fit shadow-xl shadow-gray-400 ${formatBackground()}`}>
       <TopButtons setQuery={setQuery} />
       <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
-      {weather && (
         <div>
           <TimeAndLocation weather={weather} />
           <TemperatureDetails weather={weather} />
 
-          <Forecast title="hourly forecast" items={weather.hourly} />
-          <Forecast title="daily forecast" items={weather.daily} />
+          <Forecast title="hourly forecast" items={weather?.hourly} />
+          <Forecast title="daily forecast" items={weather?.daily} />
         </div>
-      )}
 <ToastContainer autoClose={5000} theme="colored" newestOnTop={true} />
     </div>
   );
